@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="UTF-8">
+  
+    <style>
+        .error {
+            color: red;
+        }
+        .success-tick {
+            display: none;
+            color: green;
+            font-weight: bold;
+        }
+    </style>
+    <link rel="stylesheet" href="https://jqueryvalidation.org/files/demo/site-demos.css">
+
+
+    <form id="myform" action="https://www.google.com" method="get">
+        <label for="field">Required, URL: </label>
+        <input class="left" id="field" name="field" pattern="https://.*"> 
+        <span id="field_success" class="success-tick">✔</span>
+        <br><br>  
+        <label for="meet_crmid">
+            CRM Event ID: (Starts with E and listed as Event ID under Event Detail) 
+            <a href="https://image.link.novartis.com/lib/fe9413727d64017e77/m/1/536f5eb2-4260-4658-803c-de9b055be49b.png" target="_blank">
+                Click here for example
+            </a>
+        </label>
+        <input type="text" id="meet_crmid" name="meet_crmid" maxlength="18" required="" title="CRM Event ID: Starts with 'E', up to 18 characters">
+        <span id="meet_crmid_success" class="success-tick">✔</span>
+        <br><br>
+        <label for="meet_pcode">Meeting Post Code:</label>
+        <input type="text" id="meet_pcode" name="meet_pcode" maxlength="6" required="" title="Please enter a 6-digit postcode.">
+        <span id="meet_pcode_success" class="success-tick">✔</span>
+        <br>
+        <input type="submit" value="Validate!">
+    </form>
+
+    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Set defaults for validation
+            jQuery.validator.setDefaults({
+                success: "valid",
+                errorClass: "error"
+            });
+
+            // Custom function to show success tick mark
+            function showSuccessTick(elementId) {
+                $(`#${elementId}_success`).fadeIn().delay(2000).fadeOut();
+            }
+
+            // Validate the form
+            $("#myform").validate({
+                rules: {
+                    field: {
+                        required: true,
+                        url: true
+                    },
+                    meet_crmid: {
+                        required: true,
+                        pattern: "^E[a-zA-Z0-9_-]{0,17}$"
+                    },
+                    meet_pcode: {
+                        required: true,
+                        maxlength: 6,
+                        digits: true
+                    }
+                },
+                messages: {
+                    meet_crmid: {
+                        pattern: "CRM Event ID: Starts with 'E', up to 18 characters"
+                    },
+                    meet_pcode: {
+                        digits: "Please enter a 6-digit postcode."
+                    }
+                },
+                success: function(label, element) {
+                    showSuccessTick(element.id);
+                },
+                submitHandler: function(form) {
+                    form.submit(); // Submit the form immediately without delay
+                }
+            });
+        });
+    </script>
