@@ -21,10 +21,7 @@
         <span id="field_success" class="success-tick">✔</span>
         <br><br>  
         <label for="meet_crmid">
-            CRM Event ID: (Starts with E and listed as Event ID under Event Detail) 
-            <a href="https://image.link.novartis.com/lib/fe9413727d64017e77/m/1/536f5eb2-4260-4658-803c-de9b055be49b.png" target="_blank">
-                Click here for example
-            </a>
+            CRM Event ID: (Starts with E and listed as Event ID under Event Detail)
         </label>
         <input type="text" id="meet_crmid" name="meet_crmid" maxlength="18" required="" title="CRM Event ID: Starts with 'E', up to 18 characters">
         <span id="meet_crmid_success" class="success-tick">✔</span>
